@@ -33,7 +33,7 @@ namespace ByteBank
                 Console.WriteLine(e.StackTrace);
                 Console.WriteLine("Aconteceu um erro!");
             }
-            //Metodo();
+            Metodo();
         }
         private static void Metodo()
         {
