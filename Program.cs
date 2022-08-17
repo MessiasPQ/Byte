@@ -16,7 +16,7 @@ namespace ByteBank
             */
             try
             {
-                ContaCorrente conta = new ContaCorrente(5, 1, 0);
+                ContaCorrente conta = new ContaCorrente(1, 0, 0);
                 
             }
             catch (DivideByZeroException)
@@ -24,8 +24,7 @@ namespace ByteBank
                 Console.WriteLine("Não é possível divisão por zero!");
             }
             catch(ArgumentException e){
-                Console.WriteLine("Ocorreu uma exceção do tipo ArgumentException");
-                 Console.WriteLine(e.Message);
+                Console.WriteLine("Argumento com problema: " + e.ParamName);
             }
             catch (Exception e)
             {
@@ -33,11 +32,11 @@ namespace ByteBank
                 Console.WriteLine(e.StackTrace);
                 Console.WriteLine("Aconteceu um erro!");
             }
-            Metodo();
+            //Metodo();
         }
         private static void Metodo()
         {
-           TestaDivisao(0);
+           TestaDivisao(2);
         }
         private static void TestaDivisao(int divisor)
         {
