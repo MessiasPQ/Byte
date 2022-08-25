@@ -45,14 +45,14 @@ namespace ByteBank
             TotalDeContasCriadas++;
             TaxaOperacao = 30 / TotalDeContasCriadas;
         }
-        public bool Sacar(double valor)
+        public void Sacar(double valor)
         {
             if (this._saldo < valor)
             {
-                return false;
+                throw new SaldoInsuficienteException("Saldo insuficiente para o saque no valor de " + valor);
             }
             this._saldo -= valor;
-            return true;
+           
         }
 
         public void Depositar(double valor)
