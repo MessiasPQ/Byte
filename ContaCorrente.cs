@@ -77,7 +77,7 @@ namespace ByteBank
             catch (SaldoInsuficienteException ex)
             {
                 ContadorTransferenciasNaoPermitidas++;
-                throw ex;
+                throw new OperacaoFinanceiraException("Operação não realizada.", ex);
             }
             contaDestino.Depositar(valor);
         }

@@ -9,32 +9,15 @@ namespace ByteBank
         
             try
             {
-                ContaCorrente conta = new ContaCorrente(1, 2, 0);
-                ContaCorrente conta2 = new ContaCorrente(12, 22, 0);
+                ContaCorrente conta1 = new ContaCorrente(1123, 2, 150);
+                ContaCorrente conta2 = new ContaCorrente(12, 22, 50);
 
-                conta2.Transferir(10000, conta);
-                conta.Depositar(150);
-                Console.WriteLine(conta.Saldo);
-                conta.Sacar(-500);
-                Console.WriteLine(conta.Saldo);
+                conta1.Transferir(10000, conta2);
             }
-            catch (DivideByZeroException)
+            catch (OperacaoFinanceiraException e)
             {
-                Console.WriteLine("Não é possível divisão por zero!");
-            }
-            catch(ArgumentException ex){
-                Console.WriteLine("Argumento com problema: " + ex.ParamName);
-                Console.WriteLine(ex.Message);
-            }
-            catch(SaldoInsuficienteException ex)
-            {
-                Console.WriteLine(ex.StackTrace);
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("Exceção do tipo SaldoInsuficienteException");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
             }
             //Metodo();
         }
