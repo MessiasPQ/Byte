@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace ByteBank
 {
@@ -6,20 +7,29 @@ namespace ByteBank
     {
         static void Main(string[] args)
         {
-        
+            CarregarContas();
+            //Metodo();
+        }
+
+        private static void CarregarContas(){
+            
+            using(LeitorDeArquivos leitor = new LeitorDeArquivos("teste.txt")){
+                leitor.LerProximaLinha();
+            }
+        }
+        private static void TestaInnerException(){
             try
             {
                 ContaCorrente conta1 = new ContaCorrente(1123, 2, 150);
                 ContaCorrente conta2 = new ContaCorrente(12, 22, 50);
 
-                conta1.Transferir(10000, conta2);
+                conta1.Sacar(10000);
             }
             catch (OperacaoFinanceiraException e)
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
-            //Metodo();
         }
         private static void Metodo()
         {
