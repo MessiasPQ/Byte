@@ -9,12 +9,13 @@ namespace ByteBank
         public Cliente Titular { get; set; }
         public int Numero { get; }
         public static int TotalDeContasCriadas { get; private set; }
+        public int ContadorSaquesPermitidos { get; private set; }
+        public int ContadorTransferenciasNaoPermitidas { get; private set; }
         public int Agencia{ get; }
 
         private double _saldo = 200;
         public double Saldo
         {
-
             get
             {
                 return this._saldo;
@@ -47,14 +48,16 @@ namespace ByteBank
         }
         public void Sacar(double valor)
         {
-            if(valor < 0){
+            if(valor < 0)
+            {
                 throw new ArgumentException("Valor inválido para o saque.", nameof(valor));
             }
-            if (this._saldo < valor){
+            if (this._saldo < valor)
+            {
+                ContadorSaquesPermitidos++;
                 throw new SaldoInsuficienteException(Saldo, valor);
             }
             this._saldo -= valor;
-           
         }
 
         public void Depositar(double valor)
@@ -65,9 +68,17 @@ namespace ByteBank
         public void Transferir(double valor, ContaCorrente contaDestino)
         {
             if(valor < 0){
-                throw new ArgumentException("Valor inválido para o saque.", nameof(valor));
+                throw new ArgumentException("Valor inválido para a transferência.", nameof(valor));
             }
-            Sacar(valor);
+            try
+            {
+                Sacar(valor);   
+            }
+            catch (SaldoInsuficienteException ex)
+            {
+                ContadorTransferenciasNaoPermitidas++;
+                throw ex;
+            }
             contaDestino.Depositar(valor);
         }
 
